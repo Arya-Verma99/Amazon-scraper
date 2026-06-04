@@ -124,8 +124,6 @@ headers = {
 }
 ```
 
-### Header Explanation
-
 #### User-Agent
 
 Used to make the request appear as if it is coming from a real web browser rather than a bot.
@@ -165,17 +163,7 @@ BeautifulSoup is used to parse the HTML response.
 soup = BeautifulSoup(response.text, "html.parser")
 ```
 
-### 3. Extract Product Containers
-
-```python
-products = soup.select(
-    'div[data-component-type="s-search-result"]'
-)
-```
-
-This selector identifies each laptop product card on the page.
-
-### 4. Extract Product Information
+### 3. Extract Product Information
 
 The following information is collected for each laptop:
 
@@ -185,23 +173,23 @@ The following information is collected for each laptop:
 * Image URL
 * Product Type (Ad / Organic)
 
-### 5. Store Data in Lists
+### 4. Store Data in Lists
 
 Extracted information is stored in Python lists and later combined into a Pandas DataFrame.
 
-### 6. Create DataFrame
+### 5. Create DataFrame
 
 ```python
 df = pd.DataFrame({
-    "Title": titles,
-    "Price": prices,
-    "Rating": ratings,
-    "Image": images,
-    "Product_Type(Ad/Organic)": product_types
+    "Title": product_title,
+    "Price": all_prices,
+    "Rating": Product_ratings,
+    "Image": images_urls,
+    "Product_Type(Ad/Organic)": product_type
 })
 ```
 
-### 7. Save Data with Timestamp
+### 6. Save Data with Timestamp
 
 ```python
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -214,7 +202,7 @@ df.to_csv(file_name, index=False)
 Example Output:
 
 ```text
-amazon_laptop_data_20260603_194530.csv
+amazon_laptop_data_20260604_130805.csv
 ```
 
 ---
@@ -226,7 +214,7 @@ The scraper generates a timestamped CSV file containing laptop product informati
 Example:
 
 ```text
-amazon_laptop_data_20260603_194530.csv
+amazon_laptop_data_20260604_130805.csv
 ```
 
 ---
@@ -238,8 +226,7 @@ Amazon-Scraper/
 │
 ├── amazon_scraper.ipynb
 ├── README.md
-├── requirements.txt
-├── amazon_laptop_data_YYYYMMDD_HHMMSS.csv
+├── amazon_laptop_data_20260604_130805.csv
 └── env/
 ```
 
